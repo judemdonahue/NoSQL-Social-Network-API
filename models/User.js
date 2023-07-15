@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const thoughtSchema = require('./Thought');
+const moment = require('moment');
 
 const validateEmail = function(emailInput) {
     const regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
