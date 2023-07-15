@@ -1,28 +1,18 @@
 const mongoose = require('mongoose');
 
-
-
-const handleError = (err) => console.error(err);
-
 const thoughtSchema = new mongoose.Schema({
-    thoughtText: { type: String, required: true, minChar: 1, maxChar: 280 },
+    thoughtText: { type: String, required: 'Thought content is required !', minChar: 1, maxChar: 280 },
     createdAt: { type: Date, default: Date.now,  },
     // // use a getter method to format the timestamp on query
-    username: { type: String, required: true, },
+    username: { type: String, required: 'Username is required !', },
     reactions: [reactionSchema] 
 
 })
 
-
-
-
-
-
-
 const reactionSchema = new mongoose.Schema({
     reactionId: { type: Schema.Types.ObjectId },
-    reactionBody: { type: String, required: true, maxChar: 280 },
-    username: { type: String, required: true, },
+    reactionBody: { type: String, required: 'Reaction content is required !', maxChar: 280 },
+    username: { type: String, required: 'Username is required !', },
     createdAt: { type: Date, default: Date.now,  }
     // // use a getter method to format the timestamp on query
   });

@@ -1,24 +1,15 @@
 const mongoose = require('mongoose');
+const thoughtSchema = require('./Thought');
 
+const validateEmail = function(emailInput) {
+    const regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return regEx.test(emailInput)
+};
 
+const userSchema = new mongoose.Schema({
+    username: { type: String, unique: true, required: true, trim: true },
+    email: { type: String, required: 'Email address is required !', unique: true, validate: [validateEmail, 'Please fill a valid email address'], match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'] },
+    thoughts: [thoughtSchema],
+    friends: [userSchema]
+})
 
-
-
-
-//USERNAME
-// -string
-// -unique
-// -required
-//  -trimmed
-
-//EMAIL
-// -string
-// -required
-// -unique
-// -must match a valid email address, (look into mongoose's matching validation)
-
-// THOUGHTS
-// - array of _id values referencing the Thought model
-
-// friends
-// - array of _id values referencing the User model (self reference)
