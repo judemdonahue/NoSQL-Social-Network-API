@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
-const thoughtSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    lastAccessed: { type: Date, default: Date.now },
-  });
 
-const Thought = mongoose.model('Thought', thoughtSchema);
 
 const handleError = (err) => console.error(err);
 
@@ -26,23 +21,22 @@ const handleError = (err) => console.error(err);
 // REACTIONS (replies)
 // - array of nested documents created with the reactionSchema
 
+
+
 // SCHEMA SETTINGS 
 // create a virtual called "reactionCount" that retrieves the length of the thoughts reactions array field on query
 
-// REACTION (SCHEMA ONLY)
-// REACTIONID
-// use mongeesis objectId data type
+const thoughtSchema = new mongoose.Schema({
+    reactionId: { type: Schema.Types.ObjectId },
+    reactionBody: { type: String, required: true, maxChar: 280 },
+    username: { type: String, required: true, },
+    createdAt: { type: Date, default: Date.now,  }
+    // // use a getter method to format the timestamp on query
+  });
 
-// REACTION BODY
-// string
-// required
-// 280 char max
+  thoughtSchema.virtual('reactionCount').get(function() {
+    return this.reactions.length;
+});
 
-// USERNAME
-// String
-// required
+const Thought = mongoose.model('Thought', thoughtSchema);
 
-// CREATEDAT
-// date
-// det a default value to the current timestamp
-// use a getter method to format the timestamp on query
