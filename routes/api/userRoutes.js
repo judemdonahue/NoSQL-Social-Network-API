@@ -1,7 +1,15 @@
+const router = require('express').Router();
+const User = require('../../models/User');
 // API ROUTES
 
 //  /api/users
+
 // GET all users
+router.get('/', async (req, res) => {
+    const users = await User.find({});
+    res.json(users);
+});
+
 // GET a single user by its '_id' and populated thought and friend data
 // POST a new user
 

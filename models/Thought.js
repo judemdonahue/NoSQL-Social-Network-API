@@ -1,9 +1,11 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+
 const moment = require('moment');
 
 const reactionSchema = new mongoose.Schema({
     reactionId: { type: Schema.Types.ObjectId },
-    reactionBody: { type: String, required: 'Reaction content is required !', maxChar: 280 },
+    reactionBody: { type: String, required: 'Reaction content is required !', maxlength: 280 },
     username: { type: String, required: 'Username is required !', },
     createdAt: {
         type: Date,
@@ -16,27 +18,29 @@ const reactionSchema = new mongoose.Schema({
     toJSON: { getters: true }
   });
 
-const thoughtSchema = new mongoose.Schema({
-    thoughtText: { type: String, required: 'Thought content is required !', minChar: 1, maxChar: 280 },
-    username: { type: String, required: 'Username is required !', },
-    reactions: [reactionSchema],
+  const thoughtSchema = new Schema({
+    thoughtText: { type: String, required: 'Thought content is required !', minlength: 1, maxLength: 280 },
+    username: { type: String, required: 'Username is required !' },
+    reactions: [reactionSchema], // Reference the reactionSchema directly (no circular dependency)
     createdAt: {
-        type: Date,
-        default: Date.now,
-        get: function (createdAt) {
-          const formattedTimestamp = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
-          return formattedTimestamp;
-        }
+      type: Date,
+      default: Date.now,
+      get: function (createdAt) {
+        const formattedTimestamp = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
+        return formattedTimestamp;
       },
+    },
+  },
+  {
     toJSON: { virtuals: true, getters: true },
-    id: false
-});
-
-thoughtSchema.virtual('reactionCount').get(function() {
+    id: false,
+  });
+  
+  thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
-});
-
-const Thought = mongoose.model('Thought', thoughtSchema);
-
-module.exports = Thought;
-
+  });
+  
+  module.exports = {
+    thoughtSchema,
+    reactionSchema,
+  };
