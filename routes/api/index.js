@@ -1,4 +1,6 @@
-const router = require('express').Router();
+// ./api module
+const express = require('express');
+const router = express.Router();
 
 const userRoutes = require('./userRoutes');
 const thoughtRoutes = require('./thoughtRoutes');

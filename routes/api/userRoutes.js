@@ -1,4 +1,5 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const User = require('../../models/User');
 // API ROUTES
 
@@ -10,6 +11,7 @@ router.get('/', async (req, res) => {
     res.json(users);
 });
 
+module.exports = router;
 // GET a single user by its '_id' and populated thought and friend data
 // POST a new user
 

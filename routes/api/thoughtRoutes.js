@@ -1,4 +1,5 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const Thought = require('../../models/Thought');
 
 
@@ -10,6 +11,8 @@ router.get('/', async (req, res) => {
     res.json(thoughts);
 });
 
+
+module.exports = router;
 // GET to get a single thought by it's _id
 // POST to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
 

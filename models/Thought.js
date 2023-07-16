@@ -1,9 +1,8 @@
 const { Schema, model } = require('mongoose');
 const mongoose = require('mongoose');
-
 const moment = require('moment');
 
-const reactionSchema = new mongoose.Schema({
+const reactionSchema = new Schema({
     reactionId: { type: Schema.Types.ObjectId },
     reactionBody: { type: String, required: 'Reaction content is required !', maxlength: 280 },
     username: { type: String, required: 'Username is required !', },
@@ -14,7 +13,9 @@ const reactionSchema = new mongoose.Schema({
           const formattedTimestamp = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
           return formattedTimestamp;
         }
-      },
+      }, 
+  },
+  {
     toJSON: { getters: true }
   });
 

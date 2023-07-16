@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 const mongoose = require('mongoose');
-const { reactionSchema } = require('./Thought');
 
 const validateEmail = function(emailInput) {
     const regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -16,8 +15,8 @@ const userSchema = new Schema({
       validate: [validateEmail, 'Please fill a valid email address'],
       match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
     },
-    thoughts: [thoughtSchema], // Reference the thoughtSchema directly (no circular dependency)
-    friends: [userSchema], // Reference the userSchema directly (no circular dependency)
+    thoughts: [ { type: Schema.Types.ObjectId, ref: 'Thought' } ], // Reference the thoughtSchema directly (no circular dependency)
+    friends: [ { type: Schema.Types.ObjectId, ref: 'User' } ], // Reference the userSchema directly (no circular dependency)
   },
   {
     toJSON: { virtuals: true, getters: true },

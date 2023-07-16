@@ -3,8 +3,10 @@ const apiRoutes = require('./api');
 
 router.use('/api', apiRoutes);
 
-router.use((req, res) => {
-  return res.send('Wrong route!');
+// Error handling middleware
+router.use((err, req, res, next) => {
+  console.error(err); // Log the error for debugging purposes
+  res.status(500).send('Something went wrong!');
 });
 
 module.exports = router;
