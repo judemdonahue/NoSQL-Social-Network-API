@@ -7,14 +7,21 @@ const Thought = require('../../models/Thought');
 
 // GET to get all thoughts
 router.get('/', async (req, res) => {
-    const thoughts = await Thought.find({});
-    res.json(thoughts);
+    const allThoughts = await Thought.find({});
+    res.json(allThoughts);
 });
 
-
-module.exports = router;
 // GET to get a single thought by it's _id
+router.get('/', async (req, res) => {
+    const singleThought = await Thought.findById(req.params.id);
+    res.json(singleThought);
+})
+
 // POST to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
+router.post('/', async (req, res) => {
+    const newThought = await Thought.create(req.body);
+    res.json(newThought);
+})
 
 // // example data
 // {
@@ -31,3 +38,5 @@ module.exports = router;
 
 // POST to create a reaction stored in a single thoughts REACTIONS array field
 // DELETE to pull and remoce a reaction by the reaction;s REACTIONID value
+
+module.exports = router;

@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     res.json(users);
 });
 
-module.exports = router;
+
 // GET a single user by its '_id' and populated thought and friend data
 // POST a new user
 
@@ -32,3 +32,4 @@ module.exports = router;
 // POST to add a new friend user's from a friend list
 // DELETE to remove a friend from a user's friend list
 
+module.exports = router;
