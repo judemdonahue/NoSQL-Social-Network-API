@@ -41,12 +41,28 @@ router.post('/:id/reactions', async (req, res) => {
     res.json(thought);
 });
 
-// DELETE to pull and remoce a reaction by the reaction;s REACTIONID value
+// DELETE to pull and remove a reaction by the reaction's REACTIONID value
 router.delete('/:id/reactions/:reactionId', async (req, res) => {
-    const thought = await Thought.findById(req.params.id);
-    thought.reactions = thought.reactions.filter(reaction => reaction.reactionId.toString() !== req.params.reactionId);
-    await thought.save();
-    res.json(thought);
+    try {
+        const thought = await Thought.findById(req.params.id);
+
+        // Check if thought and thought.reactions are defined
+        if (!thought || !thought.reactions) {
+            return res.status(404).json({ error: 'Thought or reactions not found.' });
+        }
+
+        // Filter out the reaction with the matching reactionId
+        thought.reactions = thought.reactions.filter(reaction => {
+            // Check if the reaction object has the reactionId property
+            return reaction.reactionId && reaction.reactionId.toString() !== req.params.reactionId;
+        });
+
+        await thought.save();
+        res.json(thought);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
 });
 
 module.exports = router;
