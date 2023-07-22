@@ -62,6 +62,9 @@ This application uses MongoDb as a database. Refer to the [MongoDB-Documentation
   - To remove a reaction identified by `reactionId` from the thought identified by `thoughtId`, send a **DELETE** request to `/api/thoughts/:thoughtId/reactions/:reactionId`.
 
 
+[NoSQL-Demo.webm](https://github.com/judemdonahue/NoSQL-Social-Network-API/assets/122579098/b0fd5933-0ea4-45ad-8448-fa2050c2e69e)
+
+
 ## License
 This application is covered under the MIT License.
 
