@@ -25,7 +25,42 @@ This application can't be deployed with a live link, so included in this README 
 
 ## Usage
 ### To Use This Application 
--
+1. Git Clone the repository to your device: [GitHub-Repository](https://github.com/judemdonahue/NoSQL-Social-Network-API)
+2. Run `npm i` in the terminal 
+3. Run `npm start`
+
+This application uses MongoDb as a database. Refer to the [MongoDB-Documentation](https://www.mongodb.com/docs/manual/installation/)
+
+### Users
+
+- `GET /api/users`
+  - To retrieve a list of all available users.
+- `POST /api/users`
+  - To create a new user, use **POST** request on `/api/users`. Ensure that the request body includes `username` and `email`.
+- `PUT /api/users/:userId`
+  - For updating a specific user, send a **PUT** request to `/api/users/:userId` and include the necessary fields in the request body.
+- `DELETE /api/users/:userId`
+  - To delete a user identified by `userId`, make a **DELETE** request to `/api/users/:userId`.
+- `POST /api/users/:userId/friends/:friendId`
+  - To add a user identified by `friendId` to the friend list of the user with `userId`, use **POST** request on `/api/users/:userId/friends/:friendId`.
+- `DELETE /api/users/:userId/friends/:friendId`
+  - To remove a user identified by `friendId` from the friend list of the user with `userId`, send a **DELETE** request to `/api/users/:userId/friends/:friendId`.
+
+### Thoughts
+
+- `GET /api/thoughts`
+  - To get a list of all thoughts, perform a **GET** request on `/api/thoughts`.
+- `POST /api/thoughts`
+  - Create a new thought by making a **POST** request to `/api/thoughts`. Ensure that the request body contains `thoughtText`, `username`, and `userId`.
+- `PUT /api/thoughts/:thoughtId`
+  - To update a specific thought, use **PUT** request on `/api/thoughts/:thoughtId` and include the necessary fields in the request body.
+- `DELETE /api/thoughts/:thoughtId`
+  - To delete a thought identified by `thoughtId`, send a **DELETE** request to `/api/thoughts/:thoughtId`.
+- `POST /api/thoughts/:thoughtId/reactions`
+  - To add a new reaction to the thought identified by `thoughtId`, use **POST** request on `/api/thoughts/:thoughtId/reactions`. Include `reactionBody` and `username` in the request body.
+- `DELETE /api/thoughts/:thoughtId/reactions/:reactionId`
+  - To remove a reaction identified by `reactionId` from the thought identified by `thoughtId`, send a **DELETE** request to `/api/thoughts/:thoughtId/reactions/:reactionId`.
+
 
 ## License
 This application is covered under the MIT License.
